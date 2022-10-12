@@ -251,7 +251,7 @@ export const cancelTransactions = async (id) => {
 export const result = async (pageIndex) => {
   try {
   const response = await axios.get(
-    `http://localhost:4000/account/pendingtransactions?page=${pageIndex}&size=10`
+    `https://pod-h.herokuapp.com/account/pendingtransactions?page=${pageIndex}&size=10`
   );
   return response.data;
   } catch (error) {
@@ -262,7 +262,7 @@ export const result = async (pageIndex) => {
 export const resultTrans = async (pageIndex) => {
  try{
    const response = await axios.get(
-    `http://localhost:4000/account/allTransactions?page=${pageIndex}&size=10`
+    `https://pod-h.herokuapp.com/account/allTransactions?page=${pageIndex}&size=10`
   );
  return response.data
    } catch (error){
