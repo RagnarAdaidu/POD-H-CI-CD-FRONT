@@ -52,6 +52,22 @@ export const getUser = async (id) => {
   }
 };
 
+export const getLoginUser = async () => {
+  const id = localStorage.getItem('userID');
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}getuser/${id}`,
+      {
+        headers: { authorization: `Bearer ${token}` },
+      }
+    );
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+
 export const login = async (data) => {
   try {
     // eslint-disable-next-line no-useless-escape

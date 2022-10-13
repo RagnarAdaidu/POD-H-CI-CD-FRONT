@@ -8,7 +8,7 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { bankFormState } from "../../atoms/bankFormAtom";
 import { useRecoilState } from "recoil";
 import { HeadingStyle } from "./ViewAccts/Viewacctstyle";
-import {getUser} from '../../api/auth'
+import {getUser,getLoginUser} from '../../api/auth'
 
 // import Navbar from "../NavBar/NavBar";
 import Withdraw from "./WithdrawBalance/Withdraw"
@@ -20,8 +20,9 @@ function Dashboard() {
   const [user,setUser] =useState("")
   useEffect(() =>{
     const loadUser = async ()=> {
-      const record =await getUser()
-      setUser(record.record)
+      const record =await getLoginUser()
+      console.log(record);
+      setUser(record.record);
      
     }
     loadUser()
