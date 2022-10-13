@@ -59,10 +59,7 @@ export const getLoginUser = async () => {
   const id = localStorage.getItem('userID');
   try {
     const { data } = await axios.get(
-      `${process.env.REACT_APP_ACCT_BASE_URL}/users/getuser/${id}`,
-      {
-        headers: { authorization: `Bearer ${token}` },
-      }
+      `${process.env.REACT_APP_ACCT_BASE_URL}/users/user/${id}`
     );   
     return data;
   } catch (error) {
