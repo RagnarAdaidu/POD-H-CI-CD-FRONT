@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SellAirtimeFormStyle = styled.form`
+export const SellAirtimeFormStyle = styled.div`
   margin-top: 2rem;
   
   .sel {

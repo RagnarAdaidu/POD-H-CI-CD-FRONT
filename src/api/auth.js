@@ -19,8 +19,8 @@ const localStorageId = localStorage.getItem("id");
 
 const token = localStorage.getItem("token");
 
-export const updateProfile = (data, id) => {
-  id = localStorage.getItem('id');
+export const updateProfile = (data) => {
+  let id = localStorage.getItem('id');
   axios
     .patch(`${process.env.REACT_APP_BASE_URL}update/${id}`, data, {
       headers: { authorization: `Bearer ${token}` },
@@ -38,7 +38,7 @@ export const updateProfile = (data, id) => {
 };
 
 export const getUser = async () => {
-  id = localStorage.getItem('id');
+  let id = localStorage.getItem('id');
   try {
     const { data } = await axios.get(
       `${process.env.REACT_APP_BASE_URL}getuser/${id}`,

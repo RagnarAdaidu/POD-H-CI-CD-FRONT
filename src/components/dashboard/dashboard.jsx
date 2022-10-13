@@ -69,7 +69,7 @@ function Dashboard() {
           <div className="ul">
             <div className="na">
               {menu?.map((item, index) => (
-                <div className="mock" onClick={() => setActive(item)} >{item}</div>
+                <div className="mock" onClick={() => setActive(item)} key={item} >{item}</div>
               ))}
             </div>
             <div className="outlet">
