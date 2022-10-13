@@ -23,6 +23,7 @@ const localStorageId = localStorage.getItem("id");
 const token = localStorage.getItem("token");
 
 export const updateProfile = (data, id) => {
+  const token = localStorage.getItem("token");
   id = localStorageId;
   axios
     .patch(`${process.env.REACT_APP_BASE_URL}update/${id}`, data, {
@@ -41,6 +42,7 @@ export const updateProfile = (data, id) => {
 };
 
 export const getUser = async (id) => {
+  const token = localStorage.getItem("token");
   id = localStorageId;
   try {
     const { data } = await axios.get(
@@ -56,6 +58,7 @@ export const getUser = async (id) => {
 };
 
 export const getLoginUser = async () => {
+  const token = localStorage.getItem("token");
   const id = localStorage.getItem('userID');
   try {
     const { data } = await axios.get(
@@ -120,6 +123,7 @@ export const submitHandler = async (data) => {
 
 export const responseHandler = async (id, data) => {
   try {
+    
     const response = await client.patch(`/change-password/${id}`, data);
     return response;
   } catch (error) {
@@ -138,6 +142,7 @@ export const signupHandler = async (data) => {
 
 export const postSellAirtime = async (data) => {
   try {
+    const token = localStorage.getItem("token");
     const response = await client2.post(`/account/sellairtime`, data, {
       headers: { authorization: `Bearer ${token}` },
     });
@@ -187,7 +192,8 @@ export const getThistory = async () => {
 };
 
 export const getwithdrwalhistory = async (id) => {
-  id = localStorageId;
+  const id = localStorage.getItem("id");
+  const token = localStorage.getItem("token");
   try {
     const { data } = await client2.get(`cash/getAllUserWithdrawals/${id}`, {
       headers: { authorization: `Bearer ${token}` },
@@ -211,6 +217,7 @@ export const withdrawBalance = async (data) => {
 
 export const getSingleUser = async (id) => {
   try {
+    const id = localStorage.getItem("id");
     const token = localStorage.getItem("token");
 
     const response = await client.get(`/userrecords`, {
@@ -225,6 +232,7 @@ export const getSingleUser = async (id) => {
 
 export const deleteSingleInfo = async (id) => {
   try {
+    const id = localStorage.getItem("id");
     const response = await client2.delete(`/account/deletebankaccount/${id}`);
 
     return response;
@@ -235,6 +243,8 @@ export const deleteSingleInfo = async (id) => {
 
 export const confirmAmount = async (data, id) => {
   //   console.log({ airtime: data });
+  const id = localStorage.getItem("id");
+  const token = localStorage.getItem("token");
   try {
     const response = await client2.patch(
       `/account/updatetransactionstatus/${id}`,
@@ -251,14 +261,13 @@ export const confirmAmount = async (data, id) => {
 
 export const cancelTransactions = async (id) => {
   try {
+    const id = localStorage.getItem("id");
+    const token = localStorage.getItem("token");
     const response = await client2.patch(
       `/account/canceltransaction/${id}`,
       {
         headers: { authorization: `Bearer ${token}` },
       },
-      {
-        headers: { authorization: `Bearer ${token}` },
-      }
     );
     return response;
   } catch (error) {
