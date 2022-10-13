@@ -8,13 +8,13 @@ function Thistory() {
 
   const getTransactionHistory = async () => {
     const data = await getThistory();
-    //console.log(data,"before");
+   
     setTransactionHistory(data);
   };
   useEffect(() => {
     getTransactionHistory();
   }, []);
-  //console.log("after",transactionHistory);
+  
 
   return (
     <Parent>
