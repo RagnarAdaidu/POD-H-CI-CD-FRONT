@@ -1,14 +1,14 @@
 import { useState,useEffect } from "react";
 //import "./dashboard.css";
 import Tab from "./Tab";
-// import Navbar from "../NavBar/NavBar";
+import Navbar from "../Navbar/NavBar";
 // import TransactionHistory from "../transaction-history/TransactionHistory";
 import Bankform from "./Bankform/Bankform";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { bankFormState } from "../../atoms/bankFormAtom";
 import { useRecoilState } from "recoil";
 import { HeadingStyle } from "./ViewAccts/Viewacctstyle";
-import {getUser} from '../../api/auth'
+import {getUser,getLoginUser} from '../../api/auth'
 
 // import Navbar from "../NavBar/NavBar";
 import Withdraw from "./WithdrawBalance/Withdraw"
@@ -20,8 +20,9 @@ function Dashboard() {
   const [user,setUser] =useState("")
   useEffect(() =>{
     const loadUser = async ()=> {
-      const record =await getUser()
-      setUser(record.record)
+      const record =await getLoginUser()
+      console.log(record);
+      setUser(record.record);
      
     }
     loadUser()
@@ -41,7 +42,7 @@ function Dashboard() {
 
   return (
     <div className="App">
-      {/* <Navbar/> */}
+      <Navbar/>
       <div className="rectangle2">
        
        
@@ -51,7 +52,7 @@ function Dashboard() {
               <h1 className="mydash">Dashboard</h1>
               <div className="money">
                 <h5 className="walletBalance">Wallet balance</h5>
-                <h1 className="fig">{user?.wallet}</h1>
+                <h1 className="fig">{user.wallet}</h1>
                 <h5 className="account">Account is active</h5>
               </div>
             </>
@@ -67,9 +68,9 @@ function Dashboard() {
             <h1>{active}</h1>
           )}
           <div className="ul">
-            <div className="na">
-              {menu?.map((item, index) => (
-                <div className="mock" onClick={() => setActive(item)} key={item} >{item}</div>
+            <div className="nav">
+              {menu.map((item, index) => (
+                <div className="mock" onClick={() => setActive(item)} >{item}</div>
               ))}
             </div>
             <div className="outlet">

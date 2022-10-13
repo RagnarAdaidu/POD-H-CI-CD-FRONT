@@ -6,6 +6,9 @@ import axios from "axios";
 const client = axios.create({
   baseURL: `${process.env.REACT_APP_BASE_URL}`,
 });
+const server=axios.create({
+  baseURL: `${process.env.REACT_APP_BASE_URL_ONE}`,
+});
 
 // const client2 = axios.create({
 //     baseURL: `${process.env.REACT_APP_ACCT_BASE_URL}`,
@@ -19,10 +22,10 @@ const localStorageId = localStorage.getItem("id");
 
 const token = localStorage.getItem("token");
 
-export const updateProfile = (data) => {
-  const id = localStorage.getItem('id');
+export const updateProfile = (data, id) => {
+  id = localStorageId;
   axios
-    .patch(`${process.env.REACT_APP_BASE_URL}/users/update/${id}`, data, {
+    .patch(`${process.env.REACT_APP_BASE_URL}update/${id}`, data, {
       headers: { authorization: `Bearer ${token}` },
     })
     .then(function (response) {
@@ -37,13 +40,11 @@ export const updateProfile = (data) => {
     });
 };
 
-export const getUser = async () => {
- 
+export const getUser = async (id) => {
+  id = localStorageId;
   try {
-    const id = localStorage.getItem('id');
-    console.log(id)
     const { data } = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/users/getuser/${id}`,
+      `${process.env.REACT_APP_BASE_URL}getuser/${id}`,
       {
         headers: { authorization: `Bearer ${token}` },
       }
@@ -54,8 +55,22 @@ export const getUser = async () => {
   }
 };
 
+export const getLoginUser = async () => {
+  const id = localStorage.getItem('userID');
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_ACCT_BASE_URL}/users/user/${id}`
+    );   
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+
 export const login = async (data) => {
   try {
+     // eslint-disable-next-line 
     // eslint-disable-next-line no-useless-escape
     const emailRegex = new RegExp(
       /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
@@ -67,14 +82,14 @@ export const login = async (data) => {
       return toast.error("Email or password cannot be empty");
     }
     if (isValidEmail) {
-      const res = await client.post("/users/login", {
+      const res = await client.post("/login", {
         email: data.email,
         password: data.password,
       });
       return res.data;
     } else {
       console.log(data.email);
-      const res = await client.post("/users/login", {
+      const res = await client.post("/login", {
         username: data.email,
         password: data.password,
       });
@@ -88,7 +103,7 @@ export const login = async (data) => {
 
 export const handleResend = async () => {
   const email = JSON.parse(localStorage.getItem("Email"));
-  const response = await client.post("/users/forgotpassword", { ...email });
+  const response = await client.post("/forgotpassword", { ...email });
   if (response.status === 200) {
     toast.success("Verification link sent!");
   }
@@ -96,7 +111,7 @@ export const handleResend = async () => {
 
 export const submitHandler = async (data) => {
   try {
-    const response = await client.post("/users/forgotpassword", data);
+    const response = await client.post("/forgotpassword", data);
     return response;
   } catch (error) {
     return error;
@@ -105,7 +120,7 @@ export const submitHandler = async (data) => {
 
 export const responseHandler = async (id, data) => {
   try {
-    const response = await client.patch(`/users/change-password/${id}`, data);
+    const response = await client.patch(`/change-password/${id}`, data);
     return response;
   } catch (error) {
     return error;
@@ -114,7 +129,7 @@ export const responseHandler = async (id, data) => {
 
 export const signupHandler = async (data) => {
   try {
-    const response = await client.post(`/users/create`, data);
+    const response = await client.post(`/create`, data);
     return response;
   } catch (error) {
     return error;
@@ -148,7 +163,7 @@ export const handleAddBank = async (data) => {
 export const getUserBanks = async () => {
   try {
     const token = localStorage.getItem("token");
-    const response = await client.get(`/users/userrecords`, {
+    const response = await client.get(`/userrecords`, {
       headers: { authorization: `Bearer ${token}` },
     });
     return await response.data.record.accounts;
@@ -158,7 +173,9 @@ export const getUserBanks = async () => {
 };
 
 export const getThistory = async () => {
- const id = localStorage.getItem('id');
+  console.log(token)
+  const token = localStorage.getItem("token");
+  const id = localStorage.getItem('userID');
   try {
     const { data } = await client2.get(`account/transaction-history/${id}`, {
       headers: { authorization: `Bearer ${token}` },
@@ -169,8 +186,8 @@ export const getThistory = async () => {
   }
 };
 
-export const getwithdrwalhistory = async () => {
-  const id =  localStorage.getItem("id")
+export const getwithdrwalhistory = async (id) => {
+  id = localStorageId;
   try {
     const { data } = await client2.get(`cash/getAllUserWithdrawals/${id}`, {
       headers: { authorization: `Bearer ${token}` },
@@ -196,7 +213,7 @@ export const getSingleUser = async (id) => {
   try {
     const token = localStorage.getItem("token");
 
-    const response = await client.get(`/users/userrecords`, {
+    const response = await client.get(`/userrecords`, {
       headers: { authorization: `Bearer ${token}` },
     });
 
@@ -252,8 +269,8 @@ export const cancelTransactions = async (id) => {
 
 export const result = async (pageIndex) => {
   try {
-  const response = await client2.get(
-    `/account/pendingtransactions?page=${pageIndex}&size=10`
+  const response = await axios.get(
+    `https://pod-h.herokuapp.com/account/pendingtransactions?page=${pageIndex}&size=10`
   );
   return response.data;
   } catch (error) {
@@ -263,8 +280,8 @@ export const result = async (pageIndex) => {
 
 export const resultTrans = async (pageIndex) => {
  try{
-   const response = await client2.get(
-    `/account/allTransactions?page=${pageIndex}&size=10`
+   const response = await axios.get(
+    `https://pod-h.herokuapp.com/account/allTransactions?page=${pageIndex}&size=10`
   );
  return response.data
    } catch (error){

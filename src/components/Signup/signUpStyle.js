@@ -80,8 +80,6 @@ export const StyledForm = styled.form`
         text-align: left;
         font-size: 12px;
         position: relative;
-        width:100%;
-        /* border:5px solid green; */
 }
 
 `
@@ -96,7 +94,6 @@ export const StyleInput = styled.input`
         outline: none;
         width: 100%;
         height: 48px; 
-        /* border:5px solid green; */
       
 `
 
