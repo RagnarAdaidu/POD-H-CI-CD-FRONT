@@ -38,8 +38,10 @@ export const updateProfile = (data) => {
 };
 
 export const getUser = async () => {
-  let id = localStorage.getItem('id');
+ 
   try {
+    const id = localStorage.getItem('id');
+    console.log(id)
     const { data } = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/getuser/${id}`,
       {
