@@ -173,6 +173,8 @@ export const getUserBanks = async () => {
 };
 
 export const getThistory = async () => {
+  console.log(token)
+  const token = localStorage.getItem("token");
   const id = localStorage.getItem('userID');
   try {
     const { data } = await client2.get(`account/transaction-history/${id}`, {
