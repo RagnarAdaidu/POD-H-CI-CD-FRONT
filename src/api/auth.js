@@ -172,8 +172,8 @@ export const getUserBanks = async () => {
   }
 };
 
-export const getThistory = async (id) => {
-  id = localStorageId;
+export const getThistory = async () => {
+  const id = localStorage.getItem('userID');
   try {
     const { data } = await client2.get(`account/transaction-history/${id}`, {
       headers: { authorization: `Bearer ${token}` },
