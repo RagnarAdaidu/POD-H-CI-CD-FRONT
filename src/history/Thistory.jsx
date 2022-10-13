@@ -18,13 +18,13 @@ function Thistory() {
 
   return (
     <Parent>
-      {transactionHistory?.map((value, index) => {
+      {transactionHistory.map((value, index) => {
         return (
           <Container className="media">
             <div className="box">
               <p className="left-side-p">
                 <b>
-                  {new Date(value?.createdAt).toLocaleDateString("ng", {
+                  {new Date(value.createdAt).toLocaleDateString("ng", {
                     weekday: "long",
                   })}
                   ,
