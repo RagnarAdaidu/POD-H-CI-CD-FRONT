@@ -6,6 +6,9 @@ import axios from "axios";
 const client = axios.create({
   baseURL: `${process.env.REACT_APP_BASE_URL}`,
 });
+const server=axios.create({
+  baseURL: `${process.env.REACT_APP_BASE_URL_ONE}`,
+});
 
 // const client2 = axios.create({
 //     baseURL: `${process.env.REACT_APP_ACCT_BASE_URL}`,
@@ -56,11 +59,11 @@ export const getLoginUser = async () => {
   const id = localStorage.getItem('userID');
   try {
     const { data } = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}getuser/${id}`,
+      `${process.env.REACT_APP_BASE_URL_ONE}/getuser/${id}`,
       {
         headers: { authorization: `Bearer ${token}` },
       }
-    );
+    );   
     return data;
   } catch (error) {
     return error;
@@ -70,6 +73,7 @@ export const getLoginUser = async () => {
 
 export const login = async (data) => {
   try {
+     // eslint-disable-next-line 
     // eslint-disable-next-line no-useless-escape
     const emailRegex = new RegExp(
       /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
