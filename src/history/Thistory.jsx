@@ -18,9 +18,10 @@ function Thistory() {
 
   return (
     <Parent>
-      {transactionHistory.map((value, index) => {
+      {transactionHistory?.map((value, index) => {
+        {console.log(value)}
         return (
-          <Container className="media">
+          <Container className="media" key={value.id}>
             <div className="box">
               <p className="left-side-p">
                 <b>
