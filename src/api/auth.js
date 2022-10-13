@@ -6,9 +6,6 @@ import axios from "axios";
 const client = axios.create({
   baseURL: `${process.env.REACT_APP_BASE_URL}`,
 });
-const server=axios.create({
-  baseURL: `${process.env.REACT_APP_BASE_URL_ONE}`,
-});
 
 // const client2 = axios.create({
 //     baseURL: `${process.env.REACT_APP_ACCT_BASE_URL}`,
@@ -55,22 +52,8 @@ export const getUser = async (id) => {
   }
 };
 
-export const getLoginUser = async () => {
-  const id = localStorage.getItem('userID');
-  try {
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_ACCT_BASE_URL}/users/user/${id}`
-    );   
-    return data;
-  } catch (error) {
-    return error;
-  }
-};
-
-
 export const login = async (data) => {
   try {
-     // eslint-disable-next-line 
     // eslint-disable-next-line no-useless-escape
     const emailRegex = new RegExp(
       /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
@@ -172,10 +155,8 @@ export const getUserBanks = async () => {
   }
 };
 
-export const getThistory = async () => {
-  console.log(token)
-  const token = localStorage.getItem("token");
-  const id = localStorage.getItem('userID');
+export const getThistory = async (id) => {
+  id = localStorageId;
   try {
     const { data } = await client2.get(`account/transaction-history/${id}`, {
       headers: { authorization: `Bearer ${token}` },
@@ -269,8 +250,8 @@ export const cancelTransactions = async (id) => {
 
 export const result = async (pageIndex) => {
   try {
-  const response = await axios.get(
-    `https://pod-h.herokuapp.com/account/pendingtransactions?page=${pageIndex}&size=10`
+  const response = await client2.get(
+    `/account/pendingtransactions?page=${pageIndex}&size=10`
   );
   return response.data;
   } catch (error) {
@@ -280,8 +261,8 @@ export const result = async (pageIndex) => {
 
 export const resultTrans = async (pageIndex) => {
  try{
-   const response = await axios.get(
-    `https://pod-h.herokuapp.com/account/allTransactions?page=${pageIndex}&size=10`
+   const response = await client2.get(
+    `/account/allTransactions?page=${pageIndex}&size=10`
   );
  return response.data
    } catch (error){
