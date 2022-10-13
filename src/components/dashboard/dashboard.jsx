@@ -51,7 +51,7 @@ function Dashboard() {
               <h1 className="mydash">Dashboard</h1>
               <div className="money">
                 <h5 className="walletBalance">Wallet balance</h5>
-                <h1 className="fig">{user.wallet}</h1>
+                <h1 className="fig">{user?.wallet}</h1>
                 <h5 className="account">Account is active</h5>
               </div>
             </>
@@ -68,7 +68,7 @@ function Dashboard() {
           )}
           <div className="ul">
             <div className="na">
-              {menu.map((item, index) => (
+              {menu?.map((item, index) => (
                 <div className="mock" onClick={() => setActive(item)} >{item}</div>
               ))}
             </div>
