@@ -20,7 +20,7 @@ const localStorageId = localStorage.getItem("id");
 const token = localStorage.getItem("token");
 
 export const updateProfile = (data, id) => {
-  id = localStorageId;
+  id = localStorage.getItem('id');
   axios
     .patch(`${process.env.REACT_APP_BASE_URL}update/${id}`, data, {
       headers: { authorization: `Bearer ${token}` },
