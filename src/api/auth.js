@@ -157,8 +157,8 @@ export const getUserBanks = async () => {
   }
 };
 
-export const getThistory = async (id) => {
-  id = localStorageId;
+export const getThistory = async () => {
+ const id = localStorage.getItem('id');
   try {
     const { data } = await client2.get(`account/transaction-history/${id}`, {
       headers: { authorization: `Bearer ${token}` },
@@ -169,8 +169,8 @@ export const getThistory = async (id) => {
   }
 };
 
-export const getwithdrwalhistory = async (id) => {
-  id = localStorageId;
+export const getwithdrwalhistory = async () => {
+  const id =  localStorage.getItem("id")
   try {
     const { data } = await client2.get(`cash/getAllUserWithdrawals/${id}`, {
       headers: { authorization: `Bearer ${token}` },
