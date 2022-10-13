@@ -22,14 +22,9 @@ export const OverviewContainer = styled.div`
     margin-bottom: 0.5em;
   }
 
+  table td,
   table th {
-    color:  #012A4A;
-    padding: 15px;
-    text-align: center;
-  }
-
-  table td {
-    color:  #012A4A;
+    color: #012a4a;
     padding: 15px;
     text-align: center;
   }
@@ -50,34 +45,19 @@ export const OverviewContainer = styled.div`
     font-size: 30px;
     opacity: 0.5;
   }
-  @media(max-width: 958px){
+  @media (max-width: 846px) {
     table {
-      margin-left:50px;
+      margin-left: 10px;
     }
-    .ad-dash{
-      font-size: 30px;
+  }
+  @media (max-width: 603px) {
+    .ad-dash {
+      margin-left: 40px;
+    }
+  }
+  @media (max-width: 404px) {
+    .ad-dash {
       margin-right: 50px;
-    }
-  }
-  @media(max-width: 827px){
-    table {
-      margin-left:15px;
-    }
-  }
-  @media(max-width: 280px){
-    /* table {
-      margin-left:15px;
-    border: 1px solid red;
-
-    } */
-    .ad-dash{
-      /* font-size: 30px; */
-     
-      margin-right: -350px;
-      /* align-self: center; */
-      /* justify-content: center; */
-      /* border: 1px solid red; */
-
     }
   }
 `;
@@ -112,9 +92,4 @@ export const StyledPaginateContainer = styled.div`
       color: grey;
     }
   }
-  @media(max-width:280px){
-   margin-left: 200px
-
-   
-    }
 `;

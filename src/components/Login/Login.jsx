@@ -50,12 +50,13 @@ const navigate = useNavigate()
      
           const res = await login({email, password})
          
-         console.log(res) 
+         console.log(res,"yayyy") 
       if(res.status === "success"&&res.record.isAdmin===true){
       localStorage.setItem("firstname", res.record.firstname);
       localStorage.setItem("token", res.token);
       localStorage.setItem("id", res.record.id);
       localStorage.setItem("wallet", res.record.wallet);
+      
      
         toast.success(res.msg);
          navigate("/admin")
@@ -64,6 +65,7 @@ const navigate = useNavigate()
       localStorage.setItem("token", res.token);
       localStorage.setItem("id", res.record.id);
       localStorage.setItem("wallet", res.record.wallet);
+      localStorage.setItem("userID", res.record.id);
    
         toast.success(res.msg);
          navigate("/dashboard")
